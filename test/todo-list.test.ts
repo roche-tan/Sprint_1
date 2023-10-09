@@ -6,10 +6,9 @@
 
 - Mostrar la llista de tasques. */
 
-
 const { it, expect } = require("@jest/globals");
 
-import { taskList, addInput, removeInput } from "./todo-list";
+import { taskList, addInput, removeInput, modifyInput } from "../todo-list";
 
 describe("add task to list", () => {
   it("should thow error if input is empty", () => {
@@ -39,5 +38,34 @@ describe("remove task to list", () => {
 
     //confirm task1 is no longer on list
     expect(taskList.some((task) => task.task === "task1")).toBe(false);
+  });
+});
+
+describe("modify task", () => {
+  // Check if the task exists
+
+  it("Error if task1 doesn't exist", (): void => {
+    expect(() => modifyInput("")).toThrow("Task dees not exist");
+  });
+
+  //check if the isChecked is false
+  it("Error if task1 isCheck is false", (): void => {
+    expect(() => modifyInput("task1")).toThrow("Task not checked");
+  });
+
+  it("allows to modify if task1 exist and isCheked is true", () => {
+    const newTaskList = [...taskList];
+    modifyInput("task1");
+
+    const modifiedTask = taskList.findIndex(
+      (task) => task.task === "task1" && task.isChecked === true
+    );
+
+    expect(modifiedTask).toBeDefined();
+    expect(modifiedTask).not.toEqual(
+      newTaskList.find(
+        (task) => task.task === "task1" && task.isChecked === true
+      )
+    );
   });
 });
