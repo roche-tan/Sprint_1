@@ -1,7 +1,7 @@
 export const taskList = [
   {
     task: "task1",
-    isChecked: false,
+    isChecked: true,
   },
   {
     task: "task2",
@@ -29,7 +29,7 @@ export const addInput = (newTask: string): void => {
 };
 
 export const removeInput = (taskName: string): void => {
-  const taskIndex = taskList.findIndex((task) => task.task === taskName);
+  const taskIndex = taskList.findIndex((task) => task.task === taskName && task.isChecked === true);
 
   if (taskIndex != -1) {
     taskList.splice(taskIndex, 1);

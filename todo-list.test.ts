@@ -1,3 +1,12 @@
+/*- 
+
+- Permetre marcar una tasca com a completada.
+
+- Permetre eliminar una tasca de la llista.
+
+- Mostrar la llista de tasques. */
+
+
 const { it, expect } = require("@jest/globals");
 
 import { taskList, addInput, removeInput } from "./todo-list";
