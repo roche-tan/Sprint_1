@@ -4,7 +4,8 @@
   "description": "",
   "main": "todo-list.js",
   "scripts": {
-    "test": "jest --coverage"
+    "start": "tsc --watch", 
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
