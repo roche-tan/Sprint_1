@@ -8,7 +8,7 @@
 
 const { it, expect } = require("@jest/globals");
 
-import { taskList, addInput, removeInput, modifyInput } from "../todo-list";
+import { taskList, addInput, removeInput, modifyTask } from "../src/todo-list";
 
 describe("add task to list", () => {
   it("should thow error if input is empty", () => {
@@ -42,30 +42,17 @@ describe("remove task to list", () => {
 });
 
 describe("modify task", () => {
-  // Check if the task exists
-
-  it("Error if task1 doesn't exist", (): void => {
-    expect(() => modifyInput("")).toThrow("Task dees not exist");
-  });
-
-  //check if the isChecked is false
-  it("Error if task1 isCheck is false", (): void => {
-    expect(() => modifyInput("task1")).toThrow("Task not checked");
-  });
-
   it("allows to modify if task1 exist and isCheked is true", () => {
-    const newTaskList = [...taskList];
-    modifyInput("task1");
+    const modifiedTasklist = modifyTask(taskList, "task1", "newDescription");
 
-    const modifiedTask = taskList.findIndex(
-      (task) => task.task === "task1" && task.isChecked === true
+    expect(modifiedTasklist).not.toEqual(
+      taskList.find((task) => task.task === "task1" && task.isChecked === true)
     );
+  });
 
-    expect(modifiedTask).toBeDefined();
-    expect(modifiedTask).not.toEqual(
-      newTaskList.find(
-        (task) => task.task === "task1" && task.isChecked === true
-      )
-    );
+  it("does not modify if task does not exist or isChecked is false", () => {
+    const modifiedTaskList = modifyTask(taskList, "task2", "newDescription");
+
+    expect(modifiedTaskList).toEqual(taskList); // Ensure the list remains unchanged
   });
 });

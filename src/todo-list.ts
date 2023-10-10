@@ -1,4 +1,9 @@
-export const taskList = [
+interface Task {
+  task: string;
+  isChecked: boolean;
+}
+
+export const taskList: Task[] = [
   {
     task: "task1",
     isChecked: true,
@@ -36,15 +41,18 @@ export const removeInput = (taskName: string): void => {
   }
 };
 
-export const modifyInput = (taskName: string): void => {
-  const taskIndex = taskList.findIndex((task) => task.task === taskName);
+export const modifyTask = (
+  taskList: Task[],
+  taskName: string,
+  newDescription: string
+): Task[] => {
+  //create new copy list
+  const modifiedList = [...taskList];
 
-  //if task doesn't exist or isChecked != true
-  if (taskIndex === -1) throw new Error("Task not checked");
+  for (let i = 0; i < modifiedList.length; i++) {
+    if (modifiedList[i].task === taskName && modifiedList[i].isChecked === true)
+      modifiedList[i].task = newDescription;
+  }
 
-  //checked if task is checked
-  if (!taskList[taskIndex].isChecked) throw new Error("Task not checked");
-
-  //if conditions apply, give new value
-  taskList[taskIndex].task = "nuevoValor";
+  return modifiedList;
 };
