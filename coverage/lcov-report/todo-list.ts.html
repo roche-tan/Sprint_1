@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>25/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -123,9 +123,8 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -136,6 +135,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,6 +152,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -165,12 +167,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,7 +185,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//const form = document.getElementById("new-task-form") as HTMLFormElement | null; is the same as:
 // const form = document.querySelector&lt;HTMLFormElement&gt;("#new-task-form");
 // const input = document.querySelector&lt;HTMLInputElement&gt;("#new-task-title");
@@ -193,9 +195,7 @@ interface Task {
   isChecked: boolean;
 }
 &nbsp;
-// export let taskList: Task[] = [];
-&nbsp;
-export const taskList: Task[] = [
+export let taskList: Task[] = [
   {
     task: "task1",
     isChecked: true,
@@ -209,13 +209,16 @@ export const taskList: Task[] = [
     isChecked: false,
   },
 ];
+&nbsp;
+// Returns a task list as an array of strings(use of maps)
 export const showTaskList = (taskList: Task[]): string[] =&gt; {
   return taskList.map((task) =&gt; task.task);
 };
 &nbsp;
+// Add a new task to list
 export const addInput = (newTask: string): void =&gt; {
   const taskExists = taskList.some((task) =&gt; task.task === newTask);
-  if (newTask === "") throw new Error("Empty input");
+  if (newTask === "") throw new Error("Input can not be empty");
 &nbsp;
   if (taskExists) throw new Error("Task already exists");
 &nbsp;
@@ -225,13 +228,14 @@ export const addInput = (newTask: string): void =&gt; {
   });
 };
 &nbsp;
+// remove a task from list
 export const removeInput = (taskName: string): void =&gt; {
-  const taskIndex = taskList.findIndex(
-    (task) =&gt; task.task === taskName &amp;&amp; task.isChecked === true
+  taskList = taskList.filter(
+    (task) =&gt; !(task.task === taskName &amp;&amp; task.isChecked)
   );
-  if (taskIndex != -1) {
-    taskList.splice(taskIndex, 1);
-  }
+  // if (taskIndex != -1) {
+  //   taskList.splice(taskIndex, 1);
+  // }
 };
 &nbsp;
 export const markTaskCompleted = (taskName: string): void =&gt; {
@@ -242,7 +246,6 @@ export const markTaskCompleted = (taskName: string): void =&gt; {
   }
   taskToMark.isChecked = true;
 };
-&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -250,7 +253,7 @@ export const markTaskCompleted = (taskName: string): void =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-13T17:50:03.230Z
+                at 2023-10-13T17:58:29.806Z
             </div>
         <script src="prettify.js"></script>
         <script>

@@ -17,7 +17,7 @@ describe("Show task list", () => {
 
 describe("add task to list", () => {
   it("should thow error if input is empty", () => {
-    expect(() => addInput("")).toThrow("Empty input");
+    expect(() => addInput("")).toThrow("Input can not be empty");
   });
 
   it("should not add task if it is already in list", () => {

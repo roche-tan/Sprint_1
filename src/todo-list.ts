@@ -8,9 +8,7 @@ interface Task {
   isChecked: boolean;
 }
 
-// export let taskList: Task[] = [];
-
-export const taskList: Task[] = [
+export let taskList: Task[] = [
   {
     task: "task1",
     isChecked: true,
@@ -24,13 +22,16 @@ export const taskList: Task[] = [
     isChecked: false,
   },
 ];
+
+// Returns a task list as an array of strings(use of maps)
 export const showTaskList = (taskList: Task[]): string[] => {
   return taskList.map((task) => task.task);
 };
 
+// Add a new task to list
 export const addInput = (newTask: string): void => {
   const taskExists = taskList.some((task) => task.task === newTask);
-  if (newTask === "") throw new Error("Empty input");
+  if (newTask === "") throw new Error("Input can not be empty");
 
   if (taskExists) throw new Error("Task already exists");
 
@@ -40,15 +41,14 @@ export const addInput = (newTask: string): void => {
   });
 };
 
+// remove a task from list
 export const removeInput = (taskName: string): void => {
-  const taskIndex = taskList.findIndex(
-    (task) => task.task === taskName && task.isChecked === true
+  taskList = taskList.filter(
+    (task) => !(task.task === taskName && task.isChecked)
   );
-  if (taskIndex != -1) {
-    taskList.splice(taskIndex, 1);
-  }
 };
 
+// Mark task as completed
 export const markTaskCompleted = (taskName: string): void => {
   const taskToMark = taskList.find((task) => task.task === taskName);
 
@@ -57,4 +57,3 @@ export const markTaskCompleted = (taskName: string): void => {
   }
   taskToMark.isChecked = true;
 };
-
