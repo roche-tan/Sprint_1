@@ -1,6 +1,19 @@
 const { it, expect, describe } = require("@jest/globals");
 
-import { taskList, addInput, removeInput, markTaskCompleted } from "../src/todo-list";
+import {
+  taskList,
+  addInput,
+  removeInput,
+  markTaskCompleted,
+  showTaskList,
+} from "../src/todo-list";
+
+describe("Show task list", () => {
+  it("returns an array with all task names", () => {
+    const taskNames = showTaskList(taskList);
+    expect(taskNames).toEqual(["task1", "task2", "task3"]);
+  });
+});
 
 describe("add task to list", () => {
   it("should thow error if input is empty", () => {
@@ -32,14 +45,14 @@ describe("remove task to list", () => {
   });
 });
 
-describe("Mark task as completed", () =>{
-  it("marks task2 as completed", ()=>{
+describe("Mark task as completed", () => {
+  it("marks task2 as completed", () => {
     markTaskCompleted("task2");
-    const task2 = taskList.find(task => task.task === "task2")
-    expect(task2?.isChecked).toBe(true)
-  })
+    const task2 = taskList.find((task) => task.task === "task2");
+    expect(task2?.isChecked).toBe(true);
+  });
 
-  it("Error if task is not found", ()=>{
-    expect(() => markTaskCompleted("")).toThrow("Task not found")
-  })
-})
+  it("Error if task is not found", () => {
+    expect(() => markTaskCompleted("")).toThrow("Task not found");
+  });
+});

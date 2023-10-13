@@ -24,6 +24,9 @@ export const taskList: Task[] = [
     isChecked: false,
   },
 ];
+export const showTaskList = (taskList: Task[]): string[] => {
+  return taskList.map((task) => task.task);
+};
 
 export const addInput = (newTask: string): void => {
   const taskExists = taskList.some((task) => task.task === newTask);
@@ -54,3 +57,4 @@ export const markTaskCompleted = (taskName: string): void => {
   }
   taskToMark.isChecked = true;
 };
+
