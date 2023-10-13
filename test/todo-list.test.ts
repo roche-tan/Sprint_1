@@ -1,14 +1,6 @@
-/*- 
+const { it, expect, describe } = require("@jest/globals");
 
-- Permetre marcar una tasca com a completada.
-
-- Permetre eliminar una tasca de la llista.
-
-- Mostrar la llista de tasques. */
-
-const { it, expect } = require("@jest/globals");
-
-import { taskList, addInput, removeInput, modifyTask } from "../src/todo-list";
+import { taskList, addInput, removeInput } from "../src/todo-list";
 
 describe("add task to list", () => {
   it("should thow error if input is empty", () => {
@@ -29,7 +21,6 @@ describe("remove task to list", () => {
   it("removes task1 from taskList when checked", () => {
     //task list initial length
     const initialLength = taskList.length;
-
     // call task1 to delete
     removeInput("task1");
 
@@ -38,21 +29,5 @@ describe("remove task to list", () => {
 
     //confirm task1 is no longer on list
     expect(taskList.some((task) => task.task === "task1")).toBe(false);
-  });
-});
-
-describe("modify task", () => {
-  it("allows to modify if task1 exist and isCheked is true", () => {
-    const modifiedTasklist = modifyTask(taskList, "task1", "newDescription");
-
-    expect(modifiedTasklist).not.toEqual(
-      taskList.find((task) => task.task === "task1" && task.isChecked === true)
-    );
-  });
-
-  it("does not modify if task does not exist or isChecked is false", () => {
-    const modifiedTaskList = modifyTask(taskList, "task2", "newDescription");
-
-    expect(modifiedTaskList).toEqual(taskList); // Ensure the list remains unchanged
   });
 });

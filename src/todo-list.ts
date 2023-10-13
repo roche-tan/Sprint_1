@@ -1,14 +1,23 @@
+//const form = document.getElementById("new-task-form") as HTMLFormElement | null; is the same as:
+// const form = document.querySelector<HTMLFormElement>("#new-task-form");
+// const input = document.querySelector<HTMLInputElement>("#new-task-title");
+// const list = document.querySelector<HTMLUListElement>("#show-list");
+
 interface Task {
   task: string;
   isChecked: boolean;
 }
 
+// export let taskList: Task[] = [];
+
 export const taskList: Task[] = [
   {
+
     task: "task1",
     isChecked: true,
   },
   {
+
     task: "task2",
     isChecked: false,
   },
@@ -19,9 +28,8 @@ export const taskList: Task[] = [
 ];
 
 export const addInput = (newTask: string): void => {
-  if (newTask === "") throw new Error("Empty input");
-
   const taskExists = taskList.some((task) => task.task === newTask);
+  if (newTask === "") throw new Error("Empty input");
 
   if (taskExists) throw new Error("Task already exists");
 
@@ -35,24 +43,7 @@ export const removeInput = (taskName: string): void => {
   const taskIndex = taskList.findIndex(
     (task) => task.task === taskName && task.isChecked === true
   );
-
   if (taskIndex != -1) {
     taskList.splice(taskIndex, 1);
   }
-};
-
-export const modifyTask = (
-  taskList: Task[],
-  taskName: string,
-  newDescription: string
-): Task[] => {
-  //create new copy list
-  const modifiedList = [...taskList];
-
-  for (let i = 0; i < modifiedList.length; i++) {
-    if (modifiedList[i].task === taskName && modifiedList[i].isChecked === true)
-      modifiedList[i].task = newDescription;
-  }
-
-  return modifiedList;
-};
+}

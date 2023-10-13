@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./src/todo-list.ts"></script>
+    <script type="module" src="/dist/src/todo-list.js"></script>
     <title>Mi To-do list</title>
   </head>
   <body>
     <div id="main-container">
       <h1>Mi To-do list</h1>
       <div class="list-form">
-        <form id="main-form">
+        <form id="new-task-form">
           <input
             type="text"
-            id="main-input"
+            id="new-task-title"
             placeholder="Qué tienes pendiente por hacer?"
           />
           <button type="submit" class="add-btn">Añadir a la lista</button>
@@ -21,7 +21,7 @@
         </form>
       </div>
       <div>
-        <ul class="show-list">
+        <ul id="show-list">
           <li>
             <input type="checkbox" id="cbox2" value="second_checkbox" />Task 1
           </li>
