@@ -5,15 +5,7 @@ import {
   addInput,
   removeInput,
   markTaskCompleted,
-  showTaskList,
 } from "../src/todo-list";
-
-describe("Show task list", () => {
-  it("returns an array with all task names", () => {
-    const taskNames = showTaskList(taskList);
-    expect(taskNames).toEqual(["task1", "task2", "task3"]);
-  });
-});
 
 describe("add task to list", () => {
   it("should thow error if input is empty", () => {

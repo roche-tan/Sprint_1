@@ -1,8 +1,3 @@
-//const form = document.getElementById("new-task-form") as HTMLFormElement | null; is the same as:
-// const form = document.querySelector<HTMLFormElement>("#new-task-form");
-// const input = document.querySelector<HTMLInputElement>("#new-task-title");
-// const list = document.querySelector<HTMLUListElement>("#show-list");
-
 interface Task {
   task: string;
   isChecked: boolean;
@@ -22,15 +17,24 @@ export let taskList: Task[] = [
     isChecked: false,
   },
 ];
+export const addInputOnClick = (event: Event) => {
+  event.preventDefault();
+  const taskNameElement = document.getElementById(
+    "new-task-title"
+  ) as HTMLInputElement;
+  const taskName = taskNameElement?.value;
 
-// Returns a task list as an array of strings(use of maps)
-export const showTaskList = (taskList: Task[]): string[] => {
-  return taskList.map((task) => task.task);
+  if (taskName != null) {
+    addInput(taskName);
+    renderListTask(taskList);
+  }
+  console.log("hola adios");
 };
 
 // Add a new task to list
 export const addInput = (newTask: string): void => {
   const taskExists = taskList.some((task) => task.task === newTask);
+
   if (newTask === "") throw new Error("Input can not be empty");
 
   if (taskExists) throw new Error("Task already exists");
@@ -56,4 +60,38 @@ export const markTaskCompleted = (taskName: string): void => {
     throw new Error("Task not found");
   }
   taskToMark.isChecked = true;
+};
+
+export const renderListTask = (tasks: Task[]): void => {
+  const ulList = document.getElementById("show-list");
+
+  //clean list before rendering
+  if (ulList) {
+    ulList.innerHTML = "";
+  }
+
+  taskList.forEach((task) => {
+    const li = document.createElement("li");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.checked = task.isChecked;
+    const btnDelete = document.createElement("button");
+    btnDelete.type = "submit";
+    btnDelete.textContent = "Eliminar de la lista";
+    const label = document.createElement("label");
+    label.textContent = task.task;
+
+    li.appendChild(input);
+    li.appendChild(label);
+    li.appendChild(btnDelete);
+
+    ulList?.appendChild(li);
+  });
+};
+
+window.onload = function () {
+  renderListTask(taskList);
+  document
+    .getElementById("new-task-form")
+  ?.addEventListener("submit", addInputOnClick);
 };
