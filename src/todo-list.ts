@@ -12,12 +12,10 @@ interface Task {
 
 export const taskList: Task[] = [
   {
-
     task: "task1",
     isChecked: true,
   },
   {
-
     task: "task2",
     isChecked: false,
   },
@@ -46,4 +44,13 @@ export const removeInput = (taskName: string): void => {
   if (taskIndex != -1) {
     taskList.splice(taskIndex, 1);
   }
-}
+};
+
+export const markTaskCompleted = (taskName: string): void => {
+  const taskToMark = taskList.find((task) => task.task === taskName);
+
+  if (!taskToMark) {
+    throw new Error("Task not found");
+  }
+  taskToMark.isChecked = true;
+};
