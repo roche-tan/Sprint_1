@@ -1,17 +1,19 @@
-export let taskList = [
-    {
-        task: "task1",
-        isChecked: true,
-    },
-    {
-        task: "task2",
-        isChecked: false,
-    },
-    {
-        task: "task3",
-        isChecked: false,
-    },
-];
+// list test
+// export let taskList: Task[] = [
+//   {
+//     task: "task1",
+//     isChecked: true,
+//   },
+//   {
+//     task: "task2",
+//     isChecked: false,
+//   },
+//   {
+//     task: "task3",
+//     isChecked: false,
+//   },
+// ];
+export let taskList = [];
 //TESTS
 // Add a new task to taskList array
 export const addInput = (newTask) => {
@@ -53,6 +55,8 @@ export const addInputOnClick = (event) => {
         addInput(taskName);
         renderListTask(taskList);
     }
+    // Clear the input text after adding the task
+    taskNameElement.value = "";
 };
 export const handleCheckboxChange = (event) => {
     const target = event.target;
@@ -85,10 +89,19 @@ export const renderListTask = (tasks) => {
         li.appendChild(btnDelete);
         ulList === null || ulList === void 0 ? void 0 : ulList.appendChild(li);
     });
+    // Save the updated taskList to localStorage. so list will not desapear when refreshing the  site
+    saveTaskListToLocalStorage(tasks);
+};
+const saveTaskListToLocalStorage = (tasks) => {
+    localStorage.setItem("taskList", JSON.stringify(tasks));
 };
 // runs when the web page is fully loaded.
 window.onload = function () {
     var _a;
+    const storedTaskList = localStorage.getItem("taskList");
+    if (storedTaskList) {
+        taskList = JSON.parse(storedTaskList);
+    }
     renderListTask(taskList);
     (_a = document
         .getElementById("new-task-form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", addInputOnClick);

@@ -3,20 +3,23 @@ interface Task {
   isChecked: boolean;
 }
 
-export let taskList: Task[] = [
-  {
-    task: "task1",
-    isChecked: true,
-  },
-  {
-    task: "task2",
-    isChecked: false,
-  },
-  {
-    task: "task3",
-    isChecked: false,
-  },
-];
+// list test
+// export let taskList: Task[] = [
+//   {
+//     task: "task1",
+//     isChecked: true,
+//   },
+//   {
+//     task: "task2",
+//     isChecked: false,
+//   },
+//   {
+//     task: "task3",
+//     isChecked: false,
+//   },
+// ];
+
+export let taskList: Task[] = [];
 
 //TESTS
 // Add a new task to taskList array
@@ -73,6 +76,8 @@ export const addInputOnClick = (event: Event) => {
     addInput(taskName);
     renderListTask(taskList);
   }
+  // Clear the input text after adding the task
+  taskNameElement.value = "";
 };
 
 export const handleCheckboxChange = (event: Event) => {
@@ -111,10 +116,22 @@ export const renderListTask = (tasks: Task[]): void => {
 
     ulList?.appendChild(li);
   });
+
+  // Save the updated taskList to localStorage. so list will not desapear when refreshing the  site
+  saveTaskListToLocalStorage(tasks);
+};
+
+const saveTaskListToLocalStorage = (tasks: Task[]): void => {
+  localStorage.setItem("taskList", JSON.stringify(tasks));
 };
 
 // runs when the web page is fully loaded.
 window.onload = function () {
+  const storedTaskList = localStorage.getItem("taskList");
+  if (storedTaskList) {
+    taskList = JSON.parse(storedTaskList);
+  }
+
   renderListTask(taskList);
   document
     .getElementById("new-task-form")
