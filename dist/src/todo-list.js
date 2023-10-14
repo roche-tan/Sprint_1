@@ -1,13 +1,28 @@
+export let taskList = [
+    {
+        task: "task1",
+        isChecked: true,
+    },
+    {
+        task: "task2",
+        isChecked: false,
+    },
+    {
+        task: "task3",
+        isChecked: false,
+    },
+];
 //TESTS
 // Add a new task to taskList array
 export const addInput = (newTask) => {
     const taskExists = taskList.some((task) => task.task === newTask);
     if (newTask === "") {
         alert("Añade tarea a la lista");
-        throw new Error("Input can not be empty");
+        return;
     }
     if (taskExists) {
-        throw new Error("Task already exists");
+        alert("La tarea ya está en la lista");
+        return;
     }
     taskList.push({
         task: newTask,
@@ -71,6 +86,7 @@ export const renderListTask = (tasks) => {
         ulList === null || ulList === void 0 ? void 0 : ulList.appendChild(li);
     });
 };
+// runs when the web page is fully loaded.
 window.onload = function () {
     var _a;
     renderListTask(taskList);

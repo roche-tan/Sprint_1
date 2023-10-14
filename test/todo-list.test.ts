@@ -7,7 +7,7 @@ import {
   markTaskCompleted,
 } from "../src/todo-list";
 
-describe("add task to list", () => {
+describe("add task to array list", () => {
   it("should thow error if input is empty", () => {
     expect(() => addInput("")).toThrow("Input can not be empty");
   });

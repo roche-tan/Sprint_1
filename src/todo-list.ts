@@ -25,10 +25,12 @@ export const addInput = (newTask: string): void => {
 
   if (newTask === "") {
     alert("Añade tarea a la lista");
+    return;
   }
 
   if (taskExists) {
     alert("La tarea ya está en la lista");
+    return;
   }
 
   taskList.push({
@@ -64,6 +66,7 @@ export const addInputOnClick = (event: Event) => {
   const taskNameElement = document.getElementById(
     "new-task-title"
   ) as HTMLInputElement;
+
   const taskName = taskNameElement?.value;
 
   if (taskName != null) {
@@ -110,6 +113,7 @@ export const renderListTask = (tasks: Task[]): void => {
   });
 };
 
+// runs when the web page is fully loaded.
 window.onload = function () {
   renderListTask(taskList);
   document
