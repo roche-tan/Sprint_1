@@ -17,27 +17,19 @@ export let taskList: Task[] = [
     isChecked: false,
   },
 ];
-export const addInputOnClick = (event: Event) => {
-  event.preventDefault();
-  const taskNameElement = document.getElementById(
-    "new-task-title"
-  ) as HTMLInputElement;
-  const taskName = taskNameElement?.value;
 
-  if (taskName != null) {
-    addInput(taskName);
-    renderListTask(taskList);
-  }
-  console.log("hola adios");
-};
-
-// Add a new task to list
+//TESTS
+// Add a new task to taskList array
 export const addInput = (newTask: string): void => {
   const taskExists = taskList.some((task) => task.task === newTask);
 
-  if (newTask === "") throw new Error("Input can not be empty");
+  if (newTask === "") {
+    alert("Añade tarea a la lista");
+  }
 
-  if (taskExists) throw new Error("Task already exists");
+  if (taskExists) {
+    alert("La tarea ya está en la lista");
+  }
 
   taskList.push({
     task: newTask,
@@ -50,6 +42,8 @@ export const removeInput = (taskName: string): void => {
   taskList = taskList.filter(
     (task) => !(task.task === taskName && task.isChecked)
   );
+  //render list after deleting
+  renderListTask(taskList);
 };
 
 // Mark task as completed
@@ -60,6 +54,33 @@ export const markTaskCompleted = (taskName: string): void => {
     throw new Error("Task not found");
   }
   taskToMark.isChecked = true;
+};
+
+//MY CODE
+
+//show new task in list
+export const addInputOnClick = (event: Event) => {
+  event.preventDefault();
+  const taskNameElement = document.getElementById(
+    "new-task-title"
+  ) as HTMLInputElement;
+  const taskName = taskNameElement?.value;
+
+  if (taskName != null) {
+    addInput(taskName);
+    renderListTask(taskList);
+  }
+};
+
+export const handleCheckboxChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.type === "checkbox") {
+    const labelElement = target.nextElementSibling as HTMLLabelElement;
+    const taskName = labelElement.textContent;
+    if (taskName) {
+      markTaskCompleted(taskName);
+    }
+  }
 };
 
 export const renderListTask = (tasks: Task[]): void => {
@@ -93,5 +114,17 @@ window.onload = function () {
   renderListTask(taskList);
   document
     .getElementById("new-task-form")
-  ?.addEventListener("submit", addInputOnClick);
+    ?.addEventListener("submit", addInputOnClick);
+  const ulList = document.getElementById("show-list");
+  ulList?.addEventListener("change", handleCheckboxChange);
+  ulList?.addEventListener("click", (event) => {
+    if (event.target instanceof HTMLButtonElement) {
+      const labelElement = event.target
+        .previousElementSibling as HTMLLabelElement;
+      const taskName = labelElement.textContent;
+      if (taskName) {
+        removeInput(taskName);
+      }
+    }
+  });
 };

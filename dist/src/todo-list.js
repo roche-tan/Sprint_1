@@ -1,34 +1,14 @@
-export let taskList = [
-    {
-        task: "task1",
-        isChecked: true,
-    },
-    {
-        task: "task2",
-        isChecked: false,
-    },
-    {
-        task: "task3",
-        isChecked: false,
-    },
-];
-export const addInputOnClick = (event) => {
-    event.preventDefault();
-    const taskNameElement = document.getElementById("new-task-title");
-    const taskName = taskNameElement === null || taskNameElement === void 0 ? void 0 : taskNameElement.value;
-    if (taskName != null) {
-        addInput(taskName);
-        renderListTask(taskList);
-    }
-    console.log("hola adios");
-};
-// Add a new task to list
+//TESTS
+// Add a new task to taskList array
 export const addInput = (newTask) => {
     const taskExists = taskList.some((task) => task.task === newTask);
-    if (newTask === "")
+    if (newTask === "") {
+        alert("Añade tarea a la lista");
         throw new Error("Input can not be empty");
-    if (taskExists)
+    }
+    if (taskExists) {
         throw new Error("Task already exists");
+    }
     taskList.push({
         task: newTask,
         isChecked: false,
@@ -37,6 +17,8 @@ export const addInput = (newTask) => {
 // remove a task from list
 export const removeInput = (taskName) => {
     taskList = taskList.filter((task) => !(task.task === taskName && task.isChecked));
+    //render list after deleting
+    renderListTask(taskList);
 };
 // Mark task as completed
 export const markTaskCompleted = (taskName) => {
@@ -45,6 +27,27 @@ export const markTaskCompleted = (taskName) => {
         throw new Error("Task not found");
     }
     taskToMark.isChecked = true;
+};
+//MY CODE
+//show new task in list
+export const addInputOnClick = (event) => {
+    event.preventDefault();
+    const taskNameElement = document.getElementById("new-task-title");
+    const taskName = taskNameElement === null || taskNameElement === void 0 ? void 0 : taskNameElement.value;
+    if (taskName != null) {
+        addInput(taskName);
+        renderListTask(taskList);
+    }
+};
+export const handleCheckboxChange = (event) => {
+    const target = event.target;
+    if (target.type === "checkbox") {
+        const labelElement = target.nextElementSibling;
+        const taskName = labelElement.textContent;
+        if (taskName) {
+            markTaskCompleted(taskName);
+        }
+    }
 };
 export const renderListTask = (tasks) => {
     const ulList = document.getElementById("show-list");
@@ -73,4 +76,16 @@ window.onload = function () {
     renderListTask(taskList);
     (_a = document
         .getElementById("new-task-form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", addInputOnClick);
+    const ulList = document.getElementById("show-list");
+    ulList === null || ulList === void 0 ? void 0 : ulList.addEventListener("change", handleCheckboxChange);
+    ulList === null || ulList === void 0 ? void 0 : ulList.addEventListener("click", (event) => {
+        if (event.target instanceof HTMLButtonElement) {
+            const labelElement = event.target
+                .previousElementSibling;
+            const taskName = labelElement.textContent;
+            if (taskName) {
+                removeInput(taskName);
+            }
+        }
+    });
 };
