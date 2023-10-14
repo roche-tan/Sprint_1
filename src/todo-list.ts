@@ -27,7 +27,7 @@ export const addInput = (newTask: string): void => {
   const taskExists = taskList.some((task) => task.task === newTask);
 
   if (newTask === "") {
-    alert("Añade tarea a la lista");
+    alert("Tarea vacía");
     return;
   }
 
@@ -44,9 +44,18 @@ export const addInput = (newTask: string): void => {
 
 // remove a task from list
 export const removeInput = (taskName: string): void => {
-  taskList = taskList.filter(
-    (task) => !(task.task === taskName && task.isChecked)
-  );
+
+  taskList = taskList.filter((task) => {
+    if (task.task === taskName && task.isChecked) {
+      return false;
+    }
+    if (task.task === taskName && !task.isChecked) {
+      alert("task not checked");
+      return true;
+    }
+    return true;
+  });
+  
   //render list after deleting
   renderListTask(taskList);
 };
