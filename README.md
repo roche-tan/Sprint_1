@@ -1,19 +1,23 @@
 # Sprint_1: To Do List
 
-Small To do list project using:
-- TDD - Jest
-- Typescript
-- Javascript
+### Description
+Small to-do list project developed using Test-Driven Development (TDD) with Jest, Typescript, and Javascript.
 
-Node.js and npm should be instaled with this project
+### Prerequisites
+Make sure you have Node.js and npm installed on your system before proceeding.
 
-1. Clone the repository and access to the project directory directory Sprint_1
+### Installation
+1. Clone this repository to your local machine:
+>git clone https://github.com/roche-tan/Sprint_1.git   
+>cd Sprint_1
+2. Install all project dependencies:
+>npm install
 
-2. npm install - To install all dependecies: 
+### Usage
++ To automatically transpile from Typescript to Javascript while editing files:
+>npm run dev
++ To run Jest tests:
+>npm test
 
-3. npm run dev - To compile from Typescript to Javascript automatically
-  
-4. npm test - To execute the Jest test: 
-  
-5. npm start - To transpile from Typescript to Javascript: 
-  
++ To manually transpile from Typescript to Javascript:
+>npm start
