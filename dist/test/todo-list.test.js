@@ -2,28 +2,8 @@
 /**
  * @jest-environment jsdom
  */
-// const { it, expect, describe } = require("@jest/globals");
-const { taskList, addInput, removeInput, markTaskCompleted, } = require("../src/todo-list");
-// import {
-//   taskList,
-//   addInput,
-//   removeInput,
-//   markTaskCompleted,
-// } from "../src/todo-list";
+const { taskList, Task, addInput, removeInput, markTaskCompleted, } = require("../src/todo-list");
 global.alert = jest.fn();
-// list test
-// taskList.push({
-//   task: "task1",
-//   isChecked: true,
-// });
-// taskList.push({
-//   task: "task2",
-//   isChecked: false,
-// });
-// taskList.push({
-//   task: "task3",
-//   isChecked: false,
-// });
 describe("add task to array list", () => {
     it("should alert error if input is empty", () => {
         addInput("");
@@ -48,17 +28,15 @@ describe("Mark task as completed", () => {
 });
 describe("remove task to list", () => {
     it("should alert error if task is not checked", () => {
-        console.log(taskList);
         removeInput("task1");
         expect(global.alert).toHaveBeenCalledWith("Tarea no marcada");
     });
     it("removes task4 from taskList when checked", () => {
         //task list initial length
         const initialLength = taskList.length;
-        // call task1 to delete
+        // new varibale with task4 removed
         const updatedList = removeInput("task4");
-        console.log(updatedList);
-        // we check if length is -1 as task1 was deleted
+        // we check if task4 has been removed from list
         expect(updatedList.length).toBe(initialLength - 1);
         //confirm task4 is no longer on list
         expect(updatedList.some((task) => task.task === "task4")).toBe(false);
