@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for todo-list.ts</title>
+    <title>Code coverage report for src/todo-list.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="prettify.css" />
-    <link rel="stylesheet" href="base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> todo-list.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> todo-list.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.68% </span>
+                <span class="strong">44.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/82</span>
+                <span class='fraction'>37/83</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.22% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/36</span>
+                <span class='fraction'>9/36</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.48% </span>
+                <span class="strong">38.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/74</span>
+                <span class='fraction'>29/75</span>
             </div>
         
             
@@ -239,23 +239,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -345,7 +345,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -385,9 +385,9 @@ export const addInput = (newTask: string): Task[] =&gt; {
 // remove a task from list
 export const removeInput = (taskName: string): Task[] =&gt; {
   taskList = taskList.filter((task) =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (task.task === taskName &amp;&amp; !task.isChecked) {
-<span class="cstat-no" title="statement not covered" >      alert("Task not checked");</span>
-<span class="cstat-no" title="statement not covered" >      return true;</span>
+    if (task.task === taskName &amp;&amp; !task.isChecked) {
+      alert("Tarea no marcada");
+      return true;
     }
     if (task.task === taskName &amp;&amp; task.isChecked) {
       return false;
@@ -490,7 +490,7 @@ window.onload = <span class="fstat-no" title="function not covered" >function ()
         .previousElementSibling as HTMLLabelElement;
       const taskName = <span class="cstat-no" title="statement not covered" >labelElement.textContent;</span>
 <span class="cstat-no" title="statement not covered" >      <span class="missing-if-branch" title="if path not taken" >I</span>if (taskName) {</span>
-        // removeInput(taskName);
+<span class="cstat-no" title="statement not covered" >        removeInput(taskName);</span>
 &nbsp;
         //render list after deleting
 <span class="cstat-no" title="statement not covered" >        renderListTask(taskList);</span>
@@ -505,16 +505,16 @@ window.onload = <span class="fstat-no" title="function not covered" >function ()
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-10-15T11:16:44.892Z
+                at 2023-10-15T16:13:02.745Z
             </div>
-        <script src="prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="sorter.js"></script>
-        <script src="block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     

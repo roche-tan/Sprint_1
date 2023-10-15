@@ -1,92 +1,82 @@
-// list test
-// export let taskList: Task[] = [
-//   {
-//     task: "task1",
-//     isChecked: true,
-//   },
-//   {
-//     task: "task2",
-//     isChecked: false,
-//   },
-//   {
-//     task: "task3",
-//     isChecked: false,
-//   },
-// ];
-export let taskList = [];
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.renderListTask = exports.handleCheckboxChange = exports.addInputOnClick = exports.markTaskCompleted = exports.removeInput = exports.addInput = exports.taskList = void 0;
+exports.taskList = [];
 //TESTS
 // Add a new task to taskList array
-export const addInput = (newTask) => {
-    const taskExists = taskList.some((task) => task.task === newTask);
+const addInput = (newTask) => {
+    const taskExists = exports.taskList.some((task) => task.task === newTask);
     if (newTask === "") {
         alert("Tarea vacía");
-        return;
+        return exports.taskList;
     }
     if (taskExists) {
         alert("La tarea ya está en la lista");
-        return;
+        return exports.taskList;
     }
-    taskList.push({
+    exports.taskList.push({
         task: newTask,
         isChecked: false,
     });
+    return exports.taskList;
 };
+exports.addInput = addInput;
 // remove a task from list
-export const removeInput = (taskName) => {
-    // taskList = taskList.filter(
-    //   (task) => !(task.task === taskName && task.isChecked)
-    // );
-    taskList = taskList.filter((task) => {
+const removeInput = (taskName) => {
+    exports.taskList = exports.taskList.filter((task) => {
+        if (task.task === taskName && !task.isChecked) {
+            alert("Tarea no marcada");
+            return true;
+        }
         if (task.task === taskName && task.isChecked) {
             return false;
         }
-        if (task.task === taskName && !task.isChecked) {
-            alert("task not checked");
-            return true;
-        }
         return true;
     });
-    //render list after deleting
-    renderListTask(taskList);
+    return exports.taskList;
 };
+exports.removeInput = removeInput;
 // Mark task as completed
-export const markTaskCompleted = (taskName) => {
-    const taskToMark = taskList.find((task) => task.task === taskName);
-    if (!taskToMark) {
-        throw new Error("Task not found");
+const markTaskCompleted = (taskName) => {
+    const taskToMark = exports.taskList.find((task) => task.task === taskName);
+    if (taskToMark) {
+        taskToMark.isChecked = true;
     }
-    taskToMark.isChecked = true;
 };
+exports.markTaskCompleted = markTaskCompleted;
 //MY CODE
 //show new task in list
-export const addInputOnClick = (event) => {
+const addInputOnClick = (event) => {
     event.preventDefault();
     const taskNameElement = document.getElementById("new-task-title");
     const taskName = taskNameElement === null || taskNameElement === void 0 ? void 0 : taskNameElement.value;
     if (taskName != null) {
-        addInput(taskName);
-        renderListTask(taskList);
+        (0, exports.addInput)(taskName);
+        (0, exports.renderListTask)(exports.taskList);
     }
     // Clear the input text after adding the task
     taskNameElement.value = "";
 };
-export const handleCheckboxChange = (event) => {
+exports.addInputOnClick = addInputOnClick;
+const handleCheckboxChange = (event) => {
     const target = event.target;
     if (target.type === "checkbox") {
         const labelElement = target.nextElementSibling;
         const taskName = labelElement.textContent;
         if (taskName) {
-            markTaskCompleted(taskName);
+            (0, exports.markTaskCompleted)(taskName);
         }
     }
 };
-export const renderListTask = (tasks) => {
+exports.handleCheckboxChange = handleCheckboxChange;
+// draw html in page
+const renderListTask = (tasks) => {
     const ulList = document.getElementById("show-list");
     //clean list before rendering
     if (ulList) {
         ulList.innerHTML = "";
     }
-    taskList.forEach((task) => {
+    exports.taskList.forEach((task) => {
         const li = document.createElement("li");
         const input = document.createElement("input");
         input.type = "checkbox";
@@ -104,6 +94,7 @@ export const renderListTask = (tasks) => {
     // Save the updated taskList to localStorage. so list will not desapear when refreshing the  site
     saveTaskListToLocalStorage(tasks);
 };
+exports.renderListTask = renderListTask;
 const saveTaskListToLocalStorage = (tasks) => {
     localStorage.setItem("taskList", JSON.stringify(tasks));
 };
@@ -112,20 +103,22 @@ window.onload = function () {
     var _a;
     const storedTaskList = localStorage.getItem("taskList");
     if (storedTaskList) {
-        taskList = JSON.parse(storedTaskList);
+        exports.taskList = JSON.parse(storedTaskList);
     }
-    renderListTask(taskList);
+    (0, exports.renderListTask)(exports.taskList);
     (_a = document
-        .getElementById("new-task-form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", addInputOnClick);
+        .getElementById("new-task-form")) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", exports.addInputOnClick);
     const ulList = document.getElementById("show-list");
-    ulList === null || ulList === void 0 ? void 0 : ulList.addEventListener("change", handleCheckboxChange);
+    ulList === null || ulList === void 0 ? void 0 : ulList.addEventListener("change", exports.handleCheckboxChange);
     ulList === null || ulList === void 0 ? void 0 : ulList.addEventListener("click", (event) => {
         if (event.target instanceof HTMLButtonElement) {
             const labelElement = event.target
                 .previousElementSibling;
             const taskName = labelElement.textContent;
             if (taskName) {
-                removeInput(taskName);
+                (0, exports.removeInput)(taskName);
+                //render list after deleting
+                (0, exports.renderListTask)(exports.taskList);
             }
         }
     });

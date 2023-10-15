@@ -1,73 +1,54 @@
-interface Task {
+export interface Task {
   task: string;
   isChecked: boolean;
 }
-
-// list test
-// export let taskList: Task[] = [
-//   {
-//     task: "task1",
-//     isChecked: true,
-//   },
-//   {
-//     task: "task2",
-//     isChecked: false,
-//   },
-//   {
-//     task: "task3",
-//     isChecked: false,
-//   },
-// ];
-
 export let taskList: Task[] = [];
 
 //TESTS
 // Add a new task to taskList array
-export const addInput = (newTask: string): void => {
+export const addInput = (newTask: string): Task[] => {
   const taskExists = taskList.some((task) => task.task === newTask);
 
   if (newTask === "") {
     alert("Tarea vacía");
-    return;
+    return taskList;
   }
 
   if (taskExists) {
     alert("La tarea ya está en la lista");
-    return;
+    return taskList;
   }
 
   taskList.push({
     task: newTask,
     isChecked: false,
   });
+
+  return taskList;
 };
 
 // remove a task from list
-export const removeInput = (taskName: string): void => {
-
+export const removeInput = (taskName: string): Task[] => {
   taskList = taskList.filter((task) => {
+    if (task.task === taskName && !task.isChecked) {
+      alert("Tarea no marcada");
+      return true;
+    }
     if (task.task === taskName && task.isChecked) {
       return false;
     }
-    if (task.task === taskName && !task.isChecked) {
-      alert("task not checked");
-      return true;
-    }
     return true;
   });
-  
-  //render list after deleting
-  renderListTask(taskList);
+  return taskList;
 };
 
 // Mark task as completed
 export const markTaskCompleted = (taskName: string): void => {
   const taskToMark = taskList.find((task) => task.task === taskName);
 
-  if (!taskToMark) {
-    throw new Error("Task not found");
+  if (taskToMark) {
+    taskToMark.isChecked = true;
   }
-  taskToMark.isChecked = true;
 };
 
 //MY CODE
@@ -100,6 +81,7 @@ export const handleCheckboxChange = (event: Event) => {
   }
 };
 
+// draw html in page
 export const renderListTask = (tasks: Task[]): void => {
   const ulList = document.getElementById("show-list");
 
@@ -154,6 +136,9 @@ window.onload = function () {
       const taskName = labelElement.textContent;
       if (taskName) {
         removeInput(taskName);
+
+        //render list after deleting
+        renderListTask(taskList);
       }
     }
   });
