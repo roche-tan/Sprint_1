@@ -16,7 +16,10 @@ Make sure you have Node.js and npm installed on your system before proceeding.
 ### Usage
 + To automatically transpile from Typescript to Javascript while editing files:
 >npm run dev
+<<<<<<< HEAD
    
+=======
+>>>>>>> ef8e04658ed5c530ea7fe6f9160caad2938521d0
 + To run Jest tests:
 >npm test
 
