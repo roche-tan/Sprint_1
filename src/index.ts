@@ -5,7 +5,7 @@ import {
   addInput,
   removeInput,
   markTaskCompleted,
-} from "./todo-list";
+} from "./todo-list.js";
 
 // ----------------------------- MY CODE
 
@@ -39,6 +39,7 @@ export const handleCheckboxChange = (event: Event) => {
     // if there's a value, check it as true
     if (taskName) {
       markTaskCompleted(taskName);
+      renderListTask(taskList);
     }
   }
 };
@@ -62,12 +63,19 @@ export const renderListTask = (tasks: Task[]): void => {
     const input = document.createElement("input");
     input.type = "checkbox";
     input.checked = task.isChecked;
+
     const label = document.createElement("label");
     label.textContent = task.task;
+
     const btnDelete = document.createElement("button");
     btnDelete.type = "submit";
     btnDelete.textContent = "Eliminar de la lista";
 
+    if (task.isChecked) {
+      label.style.textDecoration = "line-through";
+    } else {
+      label.style.textDecoration = "none";
+    }
     // adds input, label and btnDelete as li child
     li.appendChild(input);
     li.appendChild(label);

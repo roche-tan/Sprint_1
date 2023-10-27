@@ -5,9 +5,9 @@ export interface Task {
 
 export let taskList: Task[] = [];
 
-export const setTaskList = (tasks:Task[]):void =>{
+export const setTaskList = (tasks: Task[]): void => {
   taskList = tasks;
-}
+};
 
 // ----------------------------- TESTS
 // Add a new task to taskList array
@@ -52,6 +52,7 @@ export const markTaskCompleted = (taskName: string): void => {
   const taskToMark = taskList.find((task) => task.task === taskName);
 
   if (taskToMark) {
-    taskToMark.isChecked = true;
+    // taskToMark.isChecked = true;
+    taskToMark.isChecked = !taskToMark.isChecked;
   }
 };

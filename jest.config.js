@@ -1,8 +1,9 @@
 module.exports = {
-  testEnvironment: "jsdom",
+  preset: "ts-jest",
+  // testEnvironment: "node",
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
+    // '^.+\\.ts?$': 'ts-jest',
+    "^.+\\.jsx?$": "babel-jest",
   },
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  transformIgnorePatterns: ["node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"],
+  transformIgnorePatterns: ["node_modules/(?!variables/.*)"],
 };
