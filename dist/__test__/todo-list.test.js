@@ -2,7 +2,7 @@
 /**
  * @jest-environment jsdom
  */
-const { taskList, Task, addInput, removeInput, markTaskCompleted, } = require("../src/todo-list");
+const { taskList, Task, setTaskList, addInput, removeInput, markTaskCompleted, } = require("../src/todo-list");
 global.alert = jest.fn();
 describe("add task to array list", () => {
     it("should alert error if input is empty", () => {

@@ -70,6 +70,7 @@ export const renderListTask = (tasks: Task[]): void => {
     const btnDelete = document.createElement("button");
     btnDelete.type = "submit";
     btnDelete.textContent = "Eliminar de la lista";
+    btnDelete.classList.add("delete-btn");
 
     if (task.isChecked) {
       label.style.textDecoration = "line-through";
@@ -111,16 +112,13 @@ window.onload = function () {
   ulList?.addEventListener("change", handleCheckboxChange);
 
   ulList?.addEventListener("click", (event) => {
-    // if it's a button
     if (event.target instanceof HTMLButtonElement) {
-      // targets the label, the button previous element
       const labelElement = event.target
         .previousElementSibling as HTMLLabelElement;
       const taskName = labelElement.textContent;
 
       if (taskName) {
         removeInput(taskName);
-        //render list after deleting
         renderListTask(taskList);
       }
     }

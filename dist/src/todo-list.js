@@ -38,7 +38,6 @@ export const removeInput = (taskName) => {
 export const markTaskCompleted = (taskName) => {
     const taskToMark = taskList.find((task) => task.task === taskName);
     if (taskToMark) {
-        // taskToMark.isChecked = true;
         taskToMark.isChecked = !taskToMark.isChecked;
     }
 };

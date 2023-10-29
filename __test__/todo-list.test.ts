@@ -5,6 +5,7 @@
 const {
   taskList,
   Task,
+  setTaskList,
   addInput,
   removeInput,
   markTaskCompleted,

@@ -52,7 +52,6 @@ export const markTaskCompleted = (taskName: string): void => {
   const taskToMark = taskList.find((task) => task.task === taskName);
 
   if (taskToMark) {
-    // taskToMark.isChecked = true;
     taskToMark.isChecked = !taskToMark.isChecked;
   }
 };
